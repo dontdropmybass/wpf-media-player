@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer"
         mc:Ignorable="d"
-        Title="Media Player" Height="350" Width="525"
+        Title="Media Player" MinWidth="300"
         SizeToContent="WidthAndHeight">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open" CanExecute="Open_CanExecute" Executed="Open_Executed" />
@@ -19,25 +19,30 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ToolBar>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Click="MenuItem_Click" />
+            </MenuItem>
+        </Menu>
+        <ToolBar Margin="10,312,10,10" Grid.Row="1" Background="{x:Null}">
             <Button Command="ApplicationCommands.Open">
-                <Image Source="Assets/ic_folder_black_48dp_2x.png" />
+                <Image Source="Assets/ic_folder_black_48dp_2x.png" Width="20px" />
             </Button>
             <Separator />
             <Button Command="MediaCommands.Play">
-                <Image Source="Assets/ic_play_arrow_black_48dp_2x.png" />
+                <Image Source="Assets/ic_play_arrow_black_48dp_2x.png" Width="20px" />
             </Button>
             <Button Command="MediaCommands.Pause">
-                <Image Source="Assets/ic_pause_black_48dp_2x.png" />
+                <Image Source="Assets/ic_pause_black_48dp_2x.png" Width="20px" />
             </Button>
             <Button Command="MediaCommands.Stop">
-                <Image Source="Assets/ic_stop_black_48dp_2x.png" />
+                <Image Source="Assets/ic_stop_black_48dp_2x.png" Width="20px" />
             </Button>
         </ToolBar>
 
-        <MediaElement Name="mePlayer" Grid.Row="1" LoadedBehavior="Manual" Stretch="None" />
+        <MediaElement x:Name="mePlayer" LoadedBehavior="Manual" Stretch="None" Margin="0,0,0,86" Grid.Row="1" />
 
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="1" Margin="10,285,10,54" Background="{x:Null}">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -53,10 +58,7 @@
                 <TextBlock Name="lblProgressStatus">00:00:00</TextBlock>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
-                <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="2">
-                <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1" Value="{Binding ElementName=mePlayer, Path=Volume}" />
+                <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" Margin="0,0,-6,0" />
             </StatusBarItem>
         </StatusBar>
     </Grid>
